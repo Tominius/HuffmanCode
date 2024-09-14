@@ -1,42 +1,47 @@
 package ColaPrioridad;
 
-public class ColaP implements ColaPrioridadTDA{
+public class ColaP {
 
-    int[] elementos;
-    int[] prioridades;
+    Nodo[] elementos;
     int indice;
 
     public void InicializarCola() {
-        elementos = new int[100];
-        prioridades = new int[100];
+        elementos = new Nodo[100];
         indice = 0;
     }
 
+    public Nodo PrimerNodo(){
+
+        return elementos[indice-1];
+    }
+
     public int Prioridad() {
-        return prioridades[indice-1];
+        return elementos[indice-1].frecuencia;
     }
 
     public boolean ColaVacia() {
         return (indice == 0);
     }
 
-    public int Primero() {
-        return elementos[indice-1];
+    public String Primero() {
+        return elementos[indice-1].letra;
+    }
+
+    public int tamanioCola(){
+        return indice;
     }
 
     public void Desacolar() {
         indice--;
     }
 
-    public void Acolar(int x, int prioridad) {
+    public void Acolar(Nodo a) {
         int j = indice;
-        while (j > 0 && prioridades[j-1] > prioridad){
+        while (j > 0 && elementos[j-1].frecuencia < a.frecuencia){
             elementos[j] = elementos[j-1];
-            prioridades[j] = prioridades[j-1];
             j--;
         }
-        elementos[j] = x;
-        prioridades[j] = prioridad;
+        elementos[j] = a;
         indice++;
 
     }
